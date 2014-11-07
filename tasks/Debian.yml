@@ -1,0 +1,11 @@
+---
+- name: java debian | update cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: java debian | install jdk
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items: java_packages

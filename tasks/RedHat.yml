@@ -1,0 +1,6 @@
+---
+- name: java rhel | install jdk
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items: java_packages

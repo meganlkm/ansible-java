@@ -1,0 +1,8 @@
+---
+- name: java | execute Debian tasks
+  include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: java | execute RHEL tasks
+  include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
