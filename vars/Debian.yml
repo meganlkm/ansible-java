@@ -1,0 +1,20 @@
+---
+java_version: 7
+
+java_ppas:
+  - 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main'
+  - 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main'
+
+java_apt_key_server: hkp://keyserver.ubuntu.com:80
+java_apt_key_id: EEA14886
+
+java_packages:
+  - "oracle-jdk{{ java_version }}-installer"
+  - "oracle-java{{ java_version }}-installer"
+  - "oracle-java{{ java_version }}-set-default"
+
+java_env_vars:
+  - { regexp: ^JAVA_HOME,
+      line: 'JAVA_HOME="/usr/lib/jvm/java-{{ java_version }}-oracle"'}
+  - { regexp: ^CLASSPATH,
+      line: 'CLASSPATH=".:/usr/lib/jvm/java-{{ java_version }}-oracle/lib"'}

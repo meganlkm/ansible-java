@@ -1,4 +1,20 @@
 ---
+- include_vars: Debian.yml
+
+- name: java debian | add oracle java ppa
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: java_ppas
+
+- name: java debian | apt key
+  apt_key:
+    keyserver: "{{ java_apt_key_server }}"
+    id: "{{ java_apt_key_id }}"
+
+- name: java debian | select oracle license
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+
 - name: java debian | update cache
   apt:
     update_cache: yes
@@ -8,4 +24,12 @@
   apt:
     name: "{{ item }}"
     state: installed
+    force: yes
   with_items: java_packages
+
+- name: java debian | add env vars to /etc/environment
+  lineinfile:
+    dest: /etc/environment
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items: java_env_vars

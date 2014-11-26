@@ -1,4 +1,6 @@
 ---
+- include_vars: RedHat.yml
+
 - name: java rhel | install jdk
   yum:
     name: "{{ item }}"
